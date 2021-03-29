@@ -9,9 +9,9 @@
 #ifndef PYUtilities_h
 #define PYUtilities_h
 
-//#define __DEBUG__ 1
+#define __DEBUG__ 1
 #ifdef __DEBUG__
-#define PYLog(...) NSLog(__VA_ARGS__)
+#define PYLog(format, ...) NSLog(@"{%s} in {%s:%d} :: %@", __PRETTY_FUNCTION__, __FILE__, __LINE__, [NSString stringWithFormat:format, ## __VA_ARGS__])
 #else
 #define PYLog(...) do{} while(0)
 #endif

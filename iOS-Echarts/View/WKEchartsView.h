@@ -34,7 +34,9 @@
 
 @class PYOption, PYLoadingOption, PYNoDataLoadingOption;
 
-@interface WKEchartsView : WKWebView<WKNavigationDelegate, WKUIDelegate>
+@interface WKEchartsView : WKWebView<WKNavigationDelegate, WKUIDelegate>{
+    PYOption *option;
+}
 
 @property (nonatomic, assign) CGSize divSize;
 
@@ -96,6 +98,13 @@
  *  Load echart
  */
 - (void)loadEcharts;
+
+/**
+ *  Call the js method
+ *
+ *  @param methodWithParam The format:`[instance.]methodname(params)`
+ */
+- (void)callJsMethods:(NSString *)methodWithParam;
 
 /**
  *  Set the option for echart

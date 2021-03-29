@@ -20,7 +20,7 @@
     NSMutableDictionary<PYEchartAction, PYEchartActionHandler> *actionHandleBlocks;
     // This block will store for get image from echarts and will clear when the block is called
     void (^obtainImgCompletedBlock)(PY_IMAGE *image);
-    PYOption *option;
+//    PYOption *option;
     NSString *bundlePath;
     NSString *localHtmlContents;
     PYEchartTheme _theme;
@@ -34,6 +34,14 @@
 
 - (instancetype)initWithFrame:(CGRect)frame {
     self = [super initWithFrame:frame];
+    if (self) {
+        [self initAll];
+    }
+    return self;
+}
+
+- (instancetype)initWithCoder:(NSCoder *)coder{
+    self = [super initWithCoder:coder];
     if (self) {
         [self initAll];
     }
@@ -302,14 +310,19 @@
                 js = [NSString stringWithFormat:@"%@(%@)", @"loadEcharts", jsonStr];
             }
             [strongSelf callJsMethods:js];
-            [strongSelf setTheme:_theme];
-            for (NSString * name in actionHandleBlocks.allKeys) {
-                PYLog(@"%@", [NSString stringWithFormat:@"addEchartActionHandler('%@')",name]);
-                [strongSelf callJsMethods:[NSString stringWithFormat:@"addEchartActionHandler('%@')",name]];//
-            }
-            if (strongSelf.eDelegate && [strongSelf.eDelegate respondsToSelector:@selector(echartsViewDidFinishLoad:)]) {
-                [strongSelf.eDelegate echartsViewDidFinishLoad:strongSelf];
-            }
+//            [strongSelf setTheme:_theme];
+//            for (NSString * name in actionHandleBlocks.allKeys) {
+//                PYLog(@"%@", [NSString stringWithFormat:@"addEchartActionHandler('%@')",name]);
+//                [strongSelf callJsMethods:[NSString stringWithFormat:@"addEchartActionHandler('%@')",name]];//
+//            }
+//            if (strongSelf.eDelegate && [strongSelf.eDelegate respondsToSelector:@selector(echartsViewDidFinishLoad:)]) {
+//                [strongSelf.eDelegate echartsViewDidFinishLoad:strongSelf];
+//            }
+//            // Disable user selection
+//            [self callJsMethods:@"document.documentElement.style.webkitUserSelect='none';"];
+//            
+//            // Disable callout
+//            [self callJsMethods:@"document.documentElement.style.webkitTouchCallout='none';"];
         } else {
             dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.05 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
                 if (!strongSelf.finishRender) {
